@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distribution: [ 'zulu', 'temurin', 'adopt' ]
+        distribution: [ 'adopt' ]
         java: [ '8', '11', '17' ]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -27,11 +27,22 @@ jobs:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
       - name: Install LibreOffice
-        run: sudo apt-get install -y libreoffice
+        run:   |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+              sudo apt-get install -y libreoffice
+         elif [ "$RUNNER_OS" == "Windows" ]; then
+              choco install libreoffice-fresh
+         else
+              echo "$RUNNER_OS not supported"
+              exit 1
+         fi
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.3.3
         with:
           arguments: build
+          
+          
+          
         
         
 
