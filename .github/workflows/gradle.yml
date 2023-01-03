@@ -33,8 +33,7 @@ jobs:
          elif [ "$RUNNER_OS" == "Windows" ]; then
               choco install libreoffice-fresh
          elif [ "$RUNNER_OS" == "macOS" ]; then
-              echo "MacOs install command"
-              exit 1
+              brew install libreoffice
          else
               echo "$RUNNER_OS not supported"
               exit 1
