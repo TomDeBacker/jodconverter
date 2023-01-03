@@ -39,6 +39,7 @@ jobs:
               echo "$RUNNER_OS not supported"
               exit 1
          fi
+        shell: bash
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.3.3
         with:
